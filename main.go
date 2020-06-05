@@ -10,6 +10,7 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/getPods", controller.GetPodList).Methods("GET")
+	r.HandleFunc("/getPodServ", controller.GetPodList).Methods("GET")
+	r.HandleFunc("/createcrd", controller.CreateCR).Methods("GET")
 	log.Fatal(http.ListenAndServe(":2000", r))
 }

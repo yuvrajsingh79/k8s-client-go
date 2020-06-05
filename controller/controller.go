@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"strings"
 	"syscall"
 	"time"
@@ -209,12 +210,14 @@ func GetPodList(w http.ResponseWriter, r *http.Request) {
 	for _, pod := range pods.Items {
 		fmt.Println(utility.PrettyString(pod))
 	}
+	DialGrpcServer("pod", strconv.Itoa(len(pods.Items)))
 
 	fmt.Println(strings.Repeat("*", 80))
 	fmt.Printf("\nThere are %d services in the cluster\n\n", len(svc.Items))
 	for _, svc := range svc.Items {
 		fmt.Println(utility.PrettyString(svc))
 	}
+	DialGrpcServer("service", strconv.Itoa(len(pods.Items)))
 }
 
 //CreateCR is a handler to create a CRD
